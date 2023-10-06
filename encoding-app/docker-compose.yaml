@@ -1,0 +1,16 @@
+version: '3'
+services:
+  encoding-service:
+    image: encoder-x265-img:latest
+    environment:
+      - X265_ENC_HOSTNAME=0.0.0.0
+      - X265_ENC_PORT=9000
+    volumes:
+      - /videos:/videos
+  frontend-service:
+    image: frontend-encoding-img:latest
+    ports:
+      - 8080:80
+    depends_on:
+      - encoding-service
+    
